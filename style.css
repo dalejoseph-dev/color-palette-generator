@@ -1,5 +1,18 @@
-/* Basic Reset */
+/* ============================================================
+   FONT IMPORT
+   Imports the "Poppins" font from Google Fonts in all available
+   weights (100–900) and styles (normal + italic) for use across
+   the entire page.
+============================================================ */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/* ============================================================
+   UNIVERSAL RESET (*)
+   Applies to every element on the page.
+   - Removes all default browser margin and padding.
+   - Uses border-box sizing so padding/border don't add to width.
+   - Sets Poppins as the default font with sans-serif as fallback.
+============================================================ */
 * {
     margin: 0;
     padding: 0;
@@ -7,6 +20,16 @@
     font-family: "Poppins", sans-serif;
 }
 
+/* ============================================================
+   BODY
+   Sets up the full-page background and centers all content
+   both horizontally and vertically.
+   - linear-gradient: diagonal blue-to-light-blue background.
+   - min-height: 100vh ensures it fills the full screen height.
+   - flexbox + align/justify center: perfect centering.
+   - padding: 20px prevents content from touching screen edges
+     on smaller screens.
+============================================================ */
 body {
     background: linear-gradient(135deg, #83a8df, #c3cfe2);
     min-height: 100vh;
@@ -16,15 +39,29 @@ body {
     padding: 20px;
 }
 
+/* ============================================================
+   MAIN CONTAINER (.container)
+   The white card that wraps all the app content.
+   - White background with rounded corners for a card look.
+   - max-width: 800px keeps it readable on wide screens.
+   - box-shadow gives it a floating/elevated appearance.
+============================================================ */
 .container {
     background-color: #fff;
     border-radius: 1rem;
     padding: 2rem;
     width: 100%;
     max-width: 800px;
-    box-shadow: 0, 10px, 25px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
 
+/* ============================================================
+   PAGE HEADING (h1)
+   Centers the title and adds spacing below it.
+   - position: relative is required so the ::after pseudo-element
+     (the underline) can be positioned relative to the heading.
+   - padding-bottom reserves space for the decorative underline.
+============================================================ */
 h1 {
     text-align: center;
     margin-bottom: 1.5rem;
@@ -33,6 +70,16 @@ h1 {
     padding-bottom: 0.5rem;
 }
 
+/* ============================================================
+   HEADING UNDERLINE DECORATION (h1::after)
+   Creates a short decorative colored bar under the heading
+   using a pseudo-element — no extra HTML needed.
+   - content: "" is required to make the pseudo-element render.
+   - position: absolute places it at the bottom of the heading.
+   - left: 50% + translateX(-50%) perfectly centers the bar.
+   - width: 50% makes it half the heading's width.
+   - background-color: purple/indigo accent color.
+============================================================ */
 h1::after {
     content: "";
     position: absolute;
@@ -45,6 +92,14 @@ h1::after {
     border-radius: 2px;
 }
 
+/* ============================================================
+   GENERATE BUTTON (#generate-btn)
+   A pill-shaped gradient button that triggers palette generation.
+   - linear-gradient: purple-to-violet diagonal gradient fill.
+   - border: none removes the default button border.
+   - border-radius: 50px creates the fully rounded pill shape.
+   - font-weight: 500 makes the label slightly bold.
+============================================================ */
 #generate-btn {
     background: linear-gradient(45deg, #667eea, #764ba2);
     color: #fff;
@@ -57,21 +112,47 @@ h1::after {
     font-size: 1rem;
 }
 
+/* ============================================================
+   GENERATE BUTTON — HOVER STATE
+   Adds a subtle lift effect when hovering over the button.
+   - translateY(-2px): moves the button 2px upward.
+   - box-shadow: adds a soft purple glow beneath it.
+============================================================ */
 #generate-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 10px rgba(102, 126, 234, 0,3);
+    box-shadow: 0 6px 10px rgba(102, 126, 234, 0.3);
 }
 
+/* ============================================================
+   GENERATE BUTTON — ACTIVE/PRESSED STATE
+   Resets the lift when the button is clicked, simulating
+   a physical press-down feel.
+============================================================ */
 #generate-btn:active {
     transform: translateY(0);
 }
 
+/* ============================================================
+   PALETTE GRID (.palette-container)
+   Lays out the color boxes in a responsive grid.
+   - auto-fit + minmax: automatically fills columns with a
+     minimum of 130px each, stretching to fill available space.
+   - gap: 1rem adds spacing between each color card.
+============================================================ */
 .palette-container {
     display: grid;
     gap: 1rem;
     grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
 }
 
+/* ============================================================
+   INDIVIDUAL COLOR CARD (.color-box)
+   Each card holds a color swatch and its hex info below it.
+   - overflow: hidden ensures the color swatch respects the
+     rounded corners of the card.
+   - box-shadow: subtle drop shadow for depth.
+   - transition: smooth animation for the hover lift effect.
+============================================================ */
 .color-box {
     border-radius: 10px;
     overflow: hidden;
@@ -79,15 +160,34 @@ h1::after {
     transition: transform 0.2s;
 }
 
+/* ============================================================
+   COLOR CARD — HOVER STATE
+   Lifts the card upward when hovered for an interactive feel.
+   Works together with the transition on .color-box.
+============================================================ */
 .color-box:hover {
     transform: translateY(-5px);
 }
 
+/* ============================================================
+   COLOR SWATCH (.color)
+   The top portion of each card that displays the actual color.
+   - height: 120px sets a fixed tall area for the color preview.
+   - cursor: pointer signals to the user that this area is
+     clickable (clicking it copies the hex code).
+============================================================ */
 .color {
     height: 120px;
     cursor: pointer;
 }
 
+/* ============================================================
+   HEX INFO BAR (.color-info)
+   The white strip at the bottom of each card showing the hex
+   code and the copy icon side by side.
+   - flexbox with space-between pushes the hex code left and
+     the copy button to the right.
+============================================================ */
 .color-info {
     background-color: #fff;
     padding: 0.7rem;
@@ -97,23 +197,49 @@ h1::after {
     font-size: 0.9rem;
 }
 
+/* ============================================================
+   HEX CODE TEXT (.hex-value)
+   Styles the hex color string (e.g. "#A3F1BC") in the info bar.
+   - font-weight: 500 gives it a medium-bold appearance.
+   - letter-spacing: slightly spreads characters for readability.
+============================================================ */
 .hex-value {
     font-weight: 500;
     letter-spacing: 0.5px;
 }
 
+/* ============================================================
+   COPY ICON BUTTON (.copy-btn)
+   The clipboard icon users click to copy the hex value.
+   - color: muted slate color by default.
+   - transition: smooth color change on hover.
+============================================================ */
 .copy-btn {
     cursor: pointer;
     color: #64748b;
     transition: color 0.2s;
 }
 
+/* ============================================================
+   COPY BUTTON — HOVER STATE
+   Changes the icon color to the accent purple when hovered,
+   matching the app's overall color scheme.
+============================================================ */
 .copy-btn:hover {
     color: #667eea;
 }
 
+/* ============================================================
+   RESPONSIVE BREAKPOINT — MOBILE (max-width: 768px)
+   Adjusts the grid layout for smaller screens.
+   ⚠️  NOTE: There is a syntax bug here — repeat(auto-fit,) has
+   a trailing comma which is invalid CSS. It should be:
+       grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+   This reduces the minimum column size from 130px to 100px
+   so more cards can fit on narrow screens.
+============================================================ */
 @media (max-width: 768px) {
     .palette-container {
-        grid-template-columns: repeat(auto-fit), minmax(100px, 1fr);
+        grid-template-columns: repeat(auto-fit,) minmax(100px, 1fr); /* ⚠️ Syntax bug: remove the comma after auto-fit */
     }
 }

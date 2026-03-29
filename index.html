@@ -1,35 +1,104 @@
-<<!doctype html>
+<!doctype html>
+<!-- Declares this as an HTML5 document. Must be the very first line. -->
+
 <html lang="en">
+<!-- Root element that wraps the entire page.
+     lang="en" tells browsers and screen readers the page is in English. -->
+
     <head>
+    <!-- The <head> contains metadata and resources that are not visible on the page
+         but are essential for how the browser loads and displays it. -->
+
+        <!-- Tells the browser to use UTF-8 character encoding,
+             which supports all standard characters and symbols. -->
         <meta charset="UTF-8" />
+
+        <!-- Makes the page responsive on mobile devices.
+             width=device-width: sets the layout width to match the screen width.
+             initial-scale=1.0: prevents the browser from zooming in by default. -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <!-- Sets the text shown on the browser tab and bookmarks. -->
         <title>Color Palette Generator</title>
+
+        <!-- Loads Font Awesome v7 icon library from a CDN (Content Delivery Network).
+             This gives access to icons like the copy icon (fa-copy) and
+             the refresh icon (fa-sync-alt) used inside the buttons.
+             - integrity: a security hash to verify the file hasn't been tampered with (SRI check).
+             - crossorigin: required for the integrity check to work across domains.
+             - referrerpolicy: controls how much referrer info is sent with the request. -->
         <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
             integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
             crossorigin="anonymous"
             referrerpolicy="no-referrer"/>
+
+        <!-- Loads the external stylesheet (style.css) which contains
+             all the visual styles for this app. -->
         <link rel="stylesheet" href="style.css" />
     </head>
+
     <body>
+    <!-- Everything inside <body> is visible to the user on the page. -->
+
+        <!-- Main wrapper card that centers and contains all the app content.
+             Styled in CSS as a white rounded card. -->
         <div class="container">
+
+            <!-- App title displayed at the top of the card.
+                 CSS adds a decorative underline via the h1::after pseudo-element. -->
             <h1>Color Palette Generator</h1>
+
+            <!-- Button that triggers the palette generation when clicked.
+                 - id="generate-btn": targeted by JavaScript to attach the click event.
+                 - The <i> tag renders the Font Awesome refresh/sync icon to the left of the label.
+                   fa-sync-alt: the spinning arrows icon that hints at "regenerate". -->
             <button id="generate-btn">
                 <i class="fas fa-sync-alt"></i>
                 Generate Palette
             </button>
 
+            <!-- Grid container that holds all 5 color cards side by side.
+                 JavaScript targets this element to listen for copy clicks via event delegation.
+                 CSS lays it out as a responsive auto-fill grid. -->
             <div class="palette-container">
-                <!-- COLOR BOX 1 -->
+
+                <!-- ───────────────────────────────────────────
+                     COLOR BOX 1
+                     Each .color-box is a card made up of two parts:
+                       1. .color      — the colored swatch area (top)
+                       2. .color-info — the hex code + copy icon bar (bottom)
+                ─────────────────────────────────────────── -->
                 <div class="color-box">
+
+                    <!-- The visual color swatch. Background color is set inline here
+                         as a default/placeholder value. JavaScript will overwrite
+                         this with a randomly generated color on each palette generation.
+                         ⚠️ NOTE: The inline style (#e1f5fe) and the hex label below
+                         (#E1F5DE) do NOT match — this is a bug in the default values. -->
                     <div class="color" style="background-color: #e1f5fe"></div>
+
+                    <!-- Bottom bar showing the hex code text and a copy icon.
+                         JavaScript reads the hex value from here when copying to clipboard. -->
                     <div class="color-info">
+
+                        <!-- Displays the hex color code as text (e.g. "#E1F5DE").
+                             JavaScript updates this text on each palette generation. -->
                         <span class="hex-value">#E1F5DE</span>
+
+                        <!-- Font Awesome clipboard icon used as the copy button.
+                             - far fa-copy: the "regular" (outline) copy/clipboard icon.
+                             - copy-btn: the class JavaScript and CSS use to target this icon.
+                             - title: shows a tooltip on hover saying "Copy to clipboard". 
+                             JavaScript swaps this to fa-check (✓) briefly on successful copy. -->
                         <i class="far fa-copy copy-btn" title="Copy to clipboard"></i>
                     </div>
                 </div>
-                <!-- COLOR BOX 2 -->
+
+                <!-- ─────────────────────────────────────────── -->
+                <!-- COLOR BOX 2 — same structure as Box 1 -->
+                <!-- ─────────────────────────────────────────── -->
                 <div class="color-box">
                     <div class="color" style="background-color: #b3e5fc"></div>
                     <div class="color-info">
@@ -37,7 +106,10 @@
                         <i class="far fa-copy copy-btn" title="Copy to clipboard"></i>
                     </div>
                 </div>
-                <!-- COLOR BOX 3 -->
+
+                <!-- ─────────────────────────────────────────── -->
+                <!-- COLOR BOX 3 — same structure as Box 1 -->
+                <!-- ─────────────────────────────────────────── -->
                 <div class="color-box">
                     <div class="color" style="background-color: #81d4fa"></div>
                     <div class="color-info">
@@ -45,7 +117,10 @@
                         <i class="far fa-copy copy-btn" title="Copy to clipboard"></i>
                     </div>
                 </div>
-                <!-- COLOR BOX 4 -->
+
+                <!-- ─────────────────────────────────────────── -->
+                <!-- COLOR BOX 4 — same structure as Box 1 -->
+                <!-- ─────────────────────────────────────────── -->
                 <div class="color-box">
                     <div class="color" style="background-color: #4fc3f7"></div>
                     <div class="color-info">
@@ -53,7 +128,10 @@
                         <i class="far fa-copy copy-btn" title="Copy to clipboard"></i>
                     </div>
                 </div>
-                <!-- COLOR BOX 5 -->
+
+                <!-- ─────────────────────────────────────────── -->
+                <!-- COLOR BOX 5 — same structure as Box 1 -->
+                <!-- ─────────────────────────────────────────── -->
                 <div class="color-box">
                     <div class="color" style="background-color: #29b6f6"></div>
                     <div class="color-info">
@@ -61,9 +139,17 @@
                         <i class="far fa-copy copy-btn" title="Copy to clipboard"></i>
                     </div>
                 </div>
-            </div>
-        </div>
 
+            </div>
+            <!-- End of .palette-container -->
+
+        </div>
+        <!-- End of .container -->
+
+        <!-- Loads the JavaScript file at the very end of <body>.
+             Placing it here (instead of in <head>) ensures all the HTML elements
+             above are already loaded into the DOM before the script runs,
+             so getElementById and querySelector won't return null. -->
         <script src="script.js"></script>
     </body>
 </html>
